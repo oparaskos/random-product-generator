@@ -1,17 +1,22 @@
 'use strict';
 var gulp = require('gulp');
-var clean = require('gulp-clean');
+var del = require('del');
 var sourcemaps = require('gulp-sourcemaps');
 var typescript = require('gulp-typescript');
-var tslint = require("gulp-tslint");
+var tslint = require('gulp-tslint');
+var mocha = require('gulp-mocha');
 
 gulp.task('clean', function () {
-    gulp.src('dist/**')
-        .pipe(clean())
+    return del('dist/**');
+});
+
+gulp.task('test', ['typescript'], function() {
+    return gulp.src('dist/tests/*Test*.js', {read: false})
+        .pipe(mocha())
 });
 
 gulp.task('typescript', function () {
-    gulp.src('src/**/*.ts')
+    return gulp.src('src/**/*.ts')
         .pipe(tslint({
             formatter: "verbose"
         }))
@@ -22,4 +27,4 @@ gulp.task('typescript', function () {
         .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('default', ['typescript'])
+gulp.task('default', ['clean', 'typescript', 'test'])
