@@ -1,0 +1,33 @@
+{
+  "name": "gulp-typescript-library-template",
+  "version": "0.0.1",
+  "description": "Typescript Library project using Gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/oliverparaskos_metapack/gulp-typescript-library-template.git"
+  },
+  "keywords": [
+    "Gulp",
+    "Typescript",
+    "Library",
+    "Template",
+    "Project"
+  ],
+  "author": "Oliver Paraskos <oliver.paraskos@metapack.com>",
+  "license": "UNLICENSED",
+  "homepage": "https://bitbucket.org/oliverparaskos_metapack/gulp-typescript-library-template#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-tslint": "^8.1.3",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "mocha": "^5.2.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  }
+}
