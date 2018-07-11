@@ -18,7 +18,7 @@ gulp.task('test', ['typescript'], function() {
 gulp.task('typescript', function () {
     return gulp.src('src/**/*.ts')
         .pipe(tslint({
-            formatter: "verbose"
+            formatter: 'verbose'
         }))
         .pipe(tslint.report())
         .pipe(sourcemaps.init())
