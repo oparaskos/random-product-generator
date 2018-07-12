@@ -5,6 +5,6 @@ export function randomShape(): string {
         "square",
         "diamond",
         "kite",
-        "oval",
+        "ellipse",
     ]);
 }
