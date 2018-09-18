@@ -9,7 +9,10 @@ const LOGO_POSITION = { x: 200, y: 300 };
 const MAX_TEXT_WIDTH = 200;
 
 export function randomFont() {
-    return { size: Math.random() * MAX_TEXT_WIDTH / 10 + 10, font: randomElement(fonts) };
+    return {
+        font: randomElement(fonts) + " " + randomElement(["", "sans-"]) + "serif",
+        size: Math.random() * MAX_TEXT_WIDTH / 10 + 10,
+    };
 }
 
 export class DefaultProductRenderer implements IProductRenderer {
@@ -21,6 +24,7 @@ export class DefaultProductRenderer implements IProductRenderer {
         this.renderBackground(model, ctx);
         ctx.translate(LOGO_POSITION.x, LOGO_POSITION.y);
         this.renderLogo(model, ctx);
+        this.renderSlogan(model, ctx);
         return Promise.resolve();
     }
 
@@ -31,6 +35,7 @@ export class DefaultProductRenderer implements IProductRenderer {
     }
 
     public renderLogo(model: IProductBrandingModel, ctx: CanvasRenderingContext2D) {
+        const x = ctx.strokeStyle;
         // Background
         ctx.fillStyle = model.pallette.complementary.valueOf();
         ShapeRenderer.from(model.product.logo.background).render(ctx);
@@ -38,6 +43,7 @@ export class DefaultProductRenderer implements IProductRenderer {
         ctx.fillStyle = model.pallette.colours[0].valueOf();
         ShapeRenderer.from(model.product.logo.foreground).render(ctx);
         // Product Name
+        ctx.strokeStyle = randomElement(["transparent", "black", "white"]);
         ctx.fillStyle = (model.pallette.colours[1] || new HSV(0, 0, 0)).valueOf();
         const font = randomFont();
         ctx.font = font.size + "px " + font.font;
@@ -46,7 +52,28 @@ export class DefaultProductRenderer implements IProductRenderer {
         if (w > MAX_TEXT_WIDTH) {
             ctx.font = (font.size / w) * MAX_TEXT_WIDTH + "px " + font.font;
         }
-        ctx.strokeText(model.product.name, 10, 10);
-        ctx.fillText(model.product.name, 10, 10);
+        ctx.strokeText(model.product.name, 0, 0);
+        ctx.fillText(model.product.name, 0, 0);
+        ctx.strokeStyle = x;
+    }
+
+    public renderSlogan(model: IProductBrandingModel, ctx: CanvasRenderingContext2D) {
+        const font = randomFont();
+        ctx.font = font.size + "px " + font.font;
+        const w = ctx.measureText(model.product.name).width;
+        if (w > MAX_TEXT_WIDTH / 2) {
+            ctx.font = (font.size / w) * (MAX_TEXT_WIDTH / 2) + "px " + font.font;
+        }
+        const MAX_ROTATION_ANGLE = Math.PI / 2;
+        const angle = Math.random() * MAX_ROTATION_ANGLE - (MAX_ROTATION_ANGLE / 2);
+        ctx.translate(-1 * Math.sign(angle) * 100, 100);
+        ctx.rotate(angle);
+        ctx.fillStyle = randomElement(["black", "white"]);
+        ctx.fillText(model.product.slogan, 0, 0);
+        if (Math.random() > 0.5) {
+            ctx.strokeText(model.product.slogan, 0, 0);
+        }
+        ctx.rotate(-angle);
+        ctx.translate(0, -100);
     }
 }

@@ -4,6 +4,8 @@
   "description": "Typescript Library project using Gulp",
   "main": "index.js",
   "scripts": {
+    "build": "gulp",
+    "start": "node dist/main.js",
     "test": "mocha tests/**.js"
   },
   "repository": {

@@ -1,4 +1,4 @@
-import { readFile, writeFile, writeJson } from "fs-extra";
+import { writeFile, writeJson } from "fs-extra";
 import { DefaultProductRenderer } from "./DefaultProductRenderer";
 import { generateBackground } from "./generateBackground";
 import { generatePallette } from "./generatePallette";
@@ -15,11 +15,12 @@ export function generateRandomArt(): IProductBrandingModel {
 }
 
 function render(model: IProductBrandingModel): Promise<HTMLCanvasElement> {
-    const canvas: HTMLCanvasElement = new (require("canvas"))(1920, 1080);
-    const ctx = canvas.getContext("2d");
+    const canvas: HTMLCanvasElement = new (require("canvas"))(1920 * 3, 1080 * 3);
+    const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
     if (!ctx) {
         throw new Error("Unable to get canvas context");
     }
+    ctx.scale(3, 3);
     return new DefaultProductRenderer().render(model, ctx)
         .then(() => canvas);
 }
@@ -31,8 +32,8 @@ function main() {
             return render(model)
             .then((canvas: HTMLCanvasElement) => {
                 const url = canvas.toDataURL();
-                return writeFile("output.html", `<html><body><img src="${url}" /></body></html>`);
-                });
+                return writeFile("output.html", `<html><body><img style="width: 100vw;" src="${url}" /></body></html>`);
+            });
         });
 }
 
