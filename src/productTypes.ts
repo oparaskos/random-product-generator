@@ -16,9 +16,37 @@ export const productTypes = [
     "Cream Soda",
     "Beverage",
 
-    // Random
+    // Fridge
     "Lard",
-    "Canned Butter",
+    "Butter",
+    "Milk",
+    "Cheese",
+    "Jam",
+    "Marmalade",
+    "Cream",
+
+    // Pantry
+    "Soup",
+    "Cereal",
+    "Flakes",
+    "Breakfast Bar",
+    "Pasta Shapes",
+    "Flour",
+    "Teabags",
+
+    // Alcohol
+    "Vodka",
+    "Rum",
+    "Tequila",
+    "Absinthe",
+    "Liqueur",
+    "Bitters",
+    "Spirit",
+    "Spirits",
+
+    // Random
     "Grease Syrup",
     "Sugar Drink",
+    "Hot Air",
+    "Escargot",
 ];

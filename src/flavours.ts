@@ -19,4 +19,5 @@ export const flavours = [
     "Rosemary",
     "Chamomile",
     "Marshmallow",
+    "Peanut",
 ];

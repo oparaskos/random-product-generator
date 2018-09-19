@@ -4,8 +4,7 @@ import { randomAdjective } from "./generateProductName";
 import { randomElement } from "./randomElement";
 
 const randomPunct = [
-    "?", "!", "*", "†", "‡", "§", "‖",
-    "¶", "⁽¹⁾", "⁽²⁾", "₍₁₎", "₍₂₎",
+    "⸮", "¿", "‽", "?", "!", "*", "†", "‡", "¹", "²", "™", "®",
     ...new Array(10).fill(""),
 ];
 
@@ -21,7 +20,7 @@ export function generateSlogan(name: string, type: string): string {
         () => `What, ${name}`,
         () => `Buy ${name}`,
         () => `Have you tried ${name}`,
-        () => `${randomElement([name + randomElement(["It's", ""]) + ", ", "Nothing is "])}`
+        () => `${randomElement([name + randomElement([", it's", ""]) + ", ", "Nothing is "])}`
             + randomComparison(),
         () => randomComparison(),
         () => `${name}, It's like ${randomElement([...experiences, ...whiteCards])}`,
