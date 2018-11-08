@@ -1,30 +1,39 @@
-'use strict';
 var gulp = require('gulp');
 var del = require('del');
 var sourcemaps = require('gulp-sourcemaps');
-var typescript = require('gulp-typescript');
+var tsProject = require('gulp-typescript');
 var tslint = require('gulp-tslint');
 var mocha = require('gulp-mocha');
 
-gulp.task('clean', function () {
+function clean() {
     return del('dist/**');
-});
+}
 
-gulp.task('test', ['typescript'], function() {
-    return gulp.src('dist/tests/*Test*.js', {read: false})
+function templates() {
+    return gulp.src('src/**/*.hbs')
+        .pipe(gulp.dest('dist/'))
+}
+
+function mochaTest() {
+    return gulp.src('dist/tests/*Test*.js', { read: false })
         .pipe(mocha())
-});
+}
 
-gulp.task('typescript', function () {
+function typescript() {
     return gulp.src('src/**/*.ts')
         .pipe(tslint({
             formatter: 'verbose'
         }))
         .pipe(tslint.report())
         .pipe(sourcemaps.init())
-        .pipe(typescript())
+        .pipe(tsProject())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('dist/'))
-});
+}
 
-gulp.task('default', ['clean', 'typescript', 'test'])
+const build = gulp.series(clean, gulp.parallel(templates, typescript));
+const test = gulp.series(build, mochaTest);
+
+gulp.task('test', test);
+gulp.task('build', build);
+gulp.task('default', test);
